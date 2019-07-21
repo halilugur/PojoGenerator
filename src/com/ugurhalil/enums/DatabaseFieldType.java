@@ -29,8 +29,8 @@ public enum DatabaseFieldType {
     LONGVARBINARY("Byte[]"),
     DATE("java.sql.Date"),
     DATETIME("java.sql.Date"),
-    TIME("java.sql.Time"),
-    TIMESTAMP("java.sql.Timestamp");
+    TIME("java.sql.Date"),
+    TIMESTAMP("java.sql.Date");
 
     private String fieldType;
 

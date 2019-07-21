@@ -6,10 +6,19 @@ package com.ugurhalil.structures;
  * @since   2019-06-06
  */
 public class PrimaryKey {
-    
+
+    private Column column;
     private String columnName;
     private String tableName;
     private Integer sequenceSize;
+
+    public Column getColumn() {
+        return column;
+    }
+
+    public void setColumn(Column column) {
+        this.column = column;
+    }
 
     public String getColumnName() {
         return columnName;

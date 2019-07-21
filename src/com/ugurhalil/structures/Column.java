@@ -10,6 +10,7 @@ public class Column {
     private String name;
     private String type;
     private String translatedType;
+    private String translatedShortType;
     private Integer size;
 
     public String getName() {
@@ -34,6 +35,14 @@ public class Column {
 
     public void setTranslatedType(String translatedType) {
         this.translatedType = translatedType;
+    }
+
+    public String getTranslatedShortType() {
+        return translatedShortType;
+    }
+
+    public void setTranslatedShortType(String translatedShortType) {
+        this.translatedShortType = translatedShortType;
     }
 
     public Integer getSize() {

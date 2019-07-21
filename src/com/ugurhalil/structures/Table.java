@@ -13,6 +13,7 @@ public class Table {
     private List<Column> columns;
     private List<PrimaryKey> primaryKeys;
     private List<ForeignKey> foreignKeys;
+    private List<ForeignKey> importForeignKeys;
 
     public String getName() {
         return name;
@@ -44,6 +45,14 @@ public class Table {
 
     public void setForeignKeys(List<ForeignKey> foreignKeys) {
         this.foreignKeys = foreignKeys;
+    }
+
+    public List<ForeignKey> getImportForeignKeys() {
+        return importForeignKeys;
+    }
+
+    public void setImportForeignKeys(List<ForeignKey> importForeignKeys) {
+        this.importForeignKeys = importForeignKeys;
     }
 
     @Override
