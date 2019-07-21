@@ -10,6 +10,6 @@ import java.sql.SQLException;
  */
 public interface Factory {
 
-    void createStructure(DatabaseMetaData databaseMetaData) throws SQLException;
+    void createStructure(DatabaseMetaData databaseMetaData, String path) throws SQLException;
 
 }

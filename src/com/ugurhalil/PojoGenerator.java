@@ -7,25 +7,31 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 /**
- * @author  Halil UĞUR
+ * @author Halil UĞUR
  * @version 1.0
- * @since   2019-06-06
+ * @since 2019-06-06
  */
 public class PojoGenerator {
 
     public static void main(String[] args) {
 
-        DatabaseMetaData databaseMetaData = DatabaseConnection.connection();
+        if (args.length > 0) {
+            DatabaseMetaData databaseMetaData = DatabaseConnection.connection(args[0]);
 
-        ModelFactoryImpl modelFactory = new ModelFactoryImpl();
+            ModelFactoryImpl modelFactory = new ModelFactoryImpl();
 
-        if (databaseMetaData != null) {
-            try {
-                modelFactory.createStructure(databaseMetaData);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (databaseMetaData != null) {
+                try {
+                    modelFactory.createStructure(databaseMetaData, args[0]);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
+        } else {
+            System.out.println("Please use the pojo properties file. Can you check file on the git repo.");
         }
+
+
 
     }
 }

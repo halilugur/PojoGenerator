@@ -16,13 +16,11 @@ import java.util.logging.Logger;
  */
 public class DatabaseConnection {
 
-    public static final String USER_DIR = System.getProperty("user.dir");
-
-    public static DatabaseMetaData connection() {
+    public static DatabaseMetaData connection(String path) {
         Connection connection;
         try {
 
-            Properties properties = readPropertiesData();
+            Properties properties = readPropertiesData(path);
 
             String DB_URL = properties.getProperty("database.url");
             String DRIVER = properties.getProperty("database.driver");
@@ -40,9 +38,8 @@ public class DatabaseConnection {
         return null;
     }
 
-    public static Properties readPropertiesData() {
-        String propertiesPath = USER_DIR + "/pojo.properties";
-        try (InputStream input = new FileInputStream(propertiesPath)) {
+    public static Properties readPropertiesData(String path) {
+        try (InputStream input = new FileInputStream(path)) {
             Properties prop = new Properties();
             prop.load(input);
             return prop;

@@ -17,11 +17,13 @@ import java.util.stream.Collectors;
  */
 public class ClassBuilder {
 
-    public static void build(Table table) throws FileNotFoundException {
+    public static void build(Table table, String path) throws FileNotFoundException {
 
-        Properties prop = DatabaseConnection.readPropertiesData();
+        Properties prop = DatabaseConnection.readPropertiesData(path);
 
         boolean isActiveHibernate = Boolean.parseBoolean(prop.getProperty("hibernate.is.active"));
+        String fetchType = prop.getProperty("hibernate.fetchType");
+        String cascadeType = prop.getProperty("hibernate.cascadeType");
         String PACKAGE_PATH = prop.getProperty("model.package.name");
         String MODELS_PATH = prop.getProperty("generated.java.files.path") + "/";
 
@@ -47,7 +49,7 @@ public class ClassBuilder {
         stringBuilder.append(" * This file auto generate by UGURSOFT project.\n");
         stringBuilder.append(" *\n");
         stringBuilder.append(" */\n");
-        if (isActiveHibernate){
+        if (isActiveHibernate) {
             stringBuilder.append("@Entity(name = \"").append(table.getName()).append("\")\n");
         }
         stringBuilder.append("public class ").append(capitalize(table.getName())).append(" implements Serializable").append(" {");
@@ -55,7 +57,7 @@ public class ClassBuilder {
         stringBuilder.append("\n");
 
         table.getPrimaryKeys().forEach(primaryKey -> {
-            if (isActiveHibernate){
+            if (isActiveHibernate) {
                 stringBuilder.append("    @Id\n");
                 stringBuilder.append("    @GeneratedValue(strategy = GenerationType.IDENTITY)\n");
             }
@@ -67,8 +69,8 @@ public class ClassBuilder {
         });
 
         table.getImportForeignKeys().forEach(foreignKey -> {
-            if (isActiveHibernate){
-                stringBuilder.append("    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, )\n");
+            if (isActiveHibernate) {
+                stringBuilder.append("    @ManyToOne(fetch = FetchType.").append(fetchType).append(", cascade = CascadeType.").append(cascadeType).append(", )\n");
                 stringBuilder.append("    @JoinColumn(name = \"").append(foreignKey.getColumnName()).append("\")\n");
             }
             stringBuilder.append("    private ").append(capitalize(foreignKey.getTableName())).append(" ").append(foreignKey.getColumn().getName()).append(";").append("\n\n");

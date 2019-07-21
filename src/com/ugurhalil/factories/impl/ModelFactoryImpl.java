@@ -11,7 +11,6 @@ import com.ugurhalil.structures.ForeignKey;
 import java.io.FileNotFoundException;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ import java.util.logging.Logger;
 public class ModelFactoryImpl implements Factory {
 
     @Override
-    public void createStructure(DatabaseMetaData databaseMetaData) throws SQLException {
+    public void createStructure(DatabaseMetaData databaseMetaData, String path) throws SQLException {
 
         ResultSet resultSet = databaseMetaData.getTables(null, null, "%", new String[]{"TABLE"});
         while (resultSet.next()) {
@@ -97,7 +96,7 @@ public class ModelFactoryImpl implements Factory {
             table.setImportForeignKeys(importForeignKeyList);
 
             try {
-                ClassBuilder.build(table);
+                ClassBuilder.build(table, path);
             } catch (FileNotFoundException e) {
                 Logger.getLogger(ModelFactoryImpl.class.getName()).log(Level.SEVERE, null, e);
             }
