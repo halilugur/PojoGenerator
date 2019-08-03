@@ -1,13 +1,10 @@
 # Pojo Generator
 
-Pojo Generator is a Java project for database tables.
+It is a library that converts tables in database into java objects.
 
 ## Installation
 
-Download or clone project and import Intellij IDE.
-
-*************
-if you want run on command line use follow the code.
+Run on command line use follow the code.
 ```sh
 
 java -jar PojoGenerator.jar YOUR_PATH\database.properties
